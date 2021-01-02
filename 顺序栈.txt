@@ -1,0 +1,92 @@
+#include<iostream>
+using namespace std;
+template<class T>
+class arrStack {      //顺序栈类模板
+private:
+	int mSize; //最大元素存储数量
+	int top;   //栈顶元素位置
+	T* st;     //栈元素存储空间
+public:
+	arrStack(int size) {
+		//构造函数
+		mSize = size; top = -1; st = new T[mSize];
+	}
+	arrStack() {
+		//无参构造函数,默认最大存储数量为100
+		mSize = 100;
+		top = -1;
+		st = new T[mSize];
+	}
+	~arrStack() {
+		//析构函数
+		delete[]st;
+	}
+	void clear() {
+		//将栈清空
+		top = -1;
+	}
+	bool isEmpty() {
+		//判断栈是否为空
+		if (top == -1) return true;
+		else return false;
+	}
+	bool isFull() {
+		//判断栈是否满
+		if (top == mSize - 1) return true;
+		else return false;
+	}
+	bool push(const T item)
+	{
+		//入栈
+		if (top == mSize - 1) {
+			cout << "栈已满，无法进行入栈操作" << endl;
+			return false;
+		}
+		else {
+			++top;
+			st[top] = item;
+			return true;
+		}
+	}
+	bool pop(T& item)
+	{
+		//出栈
+		if (top ==-1)
+		{
+			cout << "栈为空，没有可以出栈的元素" << endl;
+			return false;
+		}
+		else {
+			item = st[top];
+			top--;
+			return true;
+		}
+	}
+	void Print()
+	{
+		//将栈中元素一次打印出来
+		for (int i = 0; i <= top; i++)
+		{
+			cout << st[i] << " ";
+		}
+		cout << endl;
+	}
+};
+int main()
+{
+	//测试程序
+	arrStack<int> stack1(5); //生成一个最大容量为100的顺序栈
+	cout << "============生成栈，开始测试===============" << endl;
+	cout << "============判断栈是否为空(1为空，0为不空)===============" << endl;
+	cout << stack1.isEmpty() << endl;
+	cout << "============向栈中压入元素===============" << endl;
+	stack1.push(3); stack1.push(5); stack1.push(36); stack1.push(30); stack1.push(58); stack1.push(75);
+	cout << "此时栈中元素="; stack1.Print();
+	cout << "============将栈顶元素弹出===============" << endl;
+	int item;
+	stack1.pop(item);
+	cout << "此时栈中元素="; stack1.Print();
+	cout << "============判断栈是否已满(1为满，0为不满)===============" << endl;
+	cout << stack1.isFull() << endl;
+	cout << "============测试完毕===============" ;
+}

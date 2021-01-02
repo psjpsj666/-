@@ -1,0 +1,131 @@
+#include<iostream>
+using namespace std;
+template<class T>
+class Sequence {  //顺序表类模板
+private:
+	T* Slist;     //存储元素
+	int maxSize;  //顺序表最大长度
+	int Pos;      //当前位置
+	int curLen;   //当前长度
+public:
+	Sequence(const int size) { //创建空的顺序表
+		maxSize = size;
+		Slist = new T[maxSize];
+		Pos = curLen = 0;
+	}
+	~Sequence()  //析构函数
+	{
+		delete[]Slist;
+	}
+	void Clear()   //清空顺序表
+	{
+		delete[]Slist; curLen = Pos = 0;
+		Slist = new T[maxSize];
+	}
+	int length(); //返回当前长度
+	bool append(T value); //在表尾添加元素
+	bool insert(const int p, T value); //在位置p处插入元素
+	bool Delete(const int p);//删除位置p处的元素
+	bool setValue(const int p, T value); //将位置p处的元素值设置为value
+	bool getPostion(int &p, T value);  //返回value值的位置
+	bool getValue(const int p, T value); //返回位置p的值
+	void Print() { //打印顺序表元素
+		for (int i = 0; i < curLen; ++i) 
+			cout << "(" << i << "," << Slist[i] << ") ";
+		cout << endl;
+	}
+};
+template<class T>
+int Sequence<T>::length() {
+	return curLen;
+}
+template<class T>bool Sequence<T>::append(T value) {
+	if (curLen >= maxSize)
+	{
+		cout << "顺序表已满，无法插入新元素!" << endl; return false;
+	}
+	else
+	{
+		Slist[curLen] = value;
+		curLen++;
+		cout << "插入尾部成功！" << endl;
+		return true;
+	}
+}
+template<class T>bool Sequence<T>::insert(const int p, T value) {
+	if (p<0 || p>curLen) { cout << "插入位置不合法，无法插入！" << endl; return false; }
+	if (curLen >= maxSize) { cout << "顺序表已满，无法插入！" << endl; return false; }
+	int i;
+	for (i = curLen; i > p; --i)
+		Slist[i] = Slist[i - 1];
+	Slist[p] = value;
+	curLen++;
+	cout << "在位置"<<p<<"处插入元素"<<value<<"成功！" << endl;
+	return true;
+}
+template<class T>bool Sequence<T>::Delete(const int p) {
+	if (p<0 || p>curLen - 1) { cout << "删除位置不合法，无法删除！" << endl; return false; }
+	if (curLen == 0) { cout << "顺序表为空表，没有元素可以删除" << endl; return false; }
+	int i; int value = Slist[p];
+	for (i = p; i < curLen - 1; ++i)
+		Slist[i] = Slist[i + 1];
+	curLen--;
+	cout << "把原本位置" << p << "处的元素" << value<<"删除成功！"<<endl;
+	return true;
+}
+template<class T>bool Sequence<T>::setValue(const int p, T value) {   //将顺序表中下标p对应的元素值设置为value
+	if (p<0 || p>curLen - 1)
+	{
+		cout << "下标位置超出范围" << endl; return false;
+	}
+	else
+	{
+		Slist[p] = value; return true;
+	}
+}
+template<class T>bool Sequence<T>::getPostion(int &p, T value) { //得到元素value在顺序表中的位置
+	int i;
+	for (i = 0; i < curLen; i++) {
+		if (Slist[i] == value)
+		{
+			p = i;
+			cout << value << "位于顺序表下标" << p << "处" << endl;
+			return true;
+			break;
+		}
+	}
+	cout << "在顺序表里没有找到元素" << value << endl;
+	return false;
+}
+template<class T>bool Sequence<T>::getValue(const int p, T value) {  //得到位置p处的元素
+	if (p<0 || p>curLen - 1) { cout << "下标位置超出范围" << endl; return false; }
+	else {
+		value = Slist[p];
+		cout << "下标" << p << "处的元素=" << value << endl;
+		return true;
+	}
+}
+int main()
+{
+	//测试
+    Sequence<int>s(10); //生成一个最大长度为10的顺序表
+	cout << "顺序表长=" << s.length() << endl;
+	s.append(1); s.append(6); s.append(3); s.append(4); //往顺序表尾部插入元素
+	cout << "顺序表长=" << s.length() << endl;
+	cout << "顺序表元素="; s.Print();
+	cout << "==========将下标为2的元素值改为25==========" << endl;
+	s.setValue(2,25);
+	cout << "顺序表元素="; s.Print();
+	cout << "==========将下标为1的元素删除==========" << endl;
+	s.Delete(1);
+	cout << "顺序表元素="; s.Print();
+	cout << "===========在下标2处插入元素16===========" << endl;;
+	s.insert(2, 16);
+	cout << "顺序表元素="; s.Print();
+	cout << "==========返回元素4的下标==========" << endl;
+	int p;
+	s.getPostion(p,4);
+	cout << "==========返回下标2的元素==========" << endl;
+	s.getValue(2,p);
+	return 0;
+}
