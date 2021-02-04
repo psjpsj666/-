@@ -2,70 +2,70 @@
 #include<stack>
 #include<queue>
 using namespace std;
-//¶ş²æÊ÷½áµãÀà
+//äºŒå‰æ ‘ç»“ç‚¹ç±»
 template<class T>
 class BinaryTreeNode {
 	//friend class BinaryTree<T>;
 private:
-	T data;   //½áµã´æ´¢µÄÊı¾İ
-	BinaryTreeNode<T>* left, * right;   //×ó×ÓÊ÷ºÍÓÒ×ÓÊ÷
+	T data;   //ç»“ç‚¹å­˜å‚¨çš„æ•°æ®
+	BinaryTreeNode<T>* left, * right;   //å·¦å­æ ‘å’Œå³å­æ ‘
 public:
-	BinaryTreeNode() :left(NULL), right(NULL) {}//ÎŞ²Î¹¹Ôìº¯Êı
+	BinaryTreeNode() :left(NULL), right(NULL) {}//æ— å‚æ„é€ å‡½æ•°
 	BinaryTreeNode(T info, BinaryTreeNode<T>* l = NULL, BinaryTreeNode<T>* r = NULL) {
-		//´ø²ÎÊıµÄ¹¹Ôìº¯Êı
+		//å¸¦å‚æ•°çš„æ„é€ å‡½æ•°
 		data = info; left = l; right = r;
 	}
-	T value()const { return data; } //·µ»ØÊı¾İÓò
-	BinaryTreeNode<T>* leftchild()const { return left; }//·µ»Ø×ó×ÓÊ÷
-	BinaryTreeNode<T>* rightchild()const { return right; }//·µ»ØÓÒ×ÓÊ÷
-	bool isLeaf() const {	//ÅĞ¶¨µ±Ç°½áµãÊÇ·ñÎªÒ¶½áµã,ÈôÊÇ·µ»Øtrue
+	T value()const { return data; } //è¿”å›æ•°æ®åŸŸ
+	BinaryTreeNode<T>* leftchild()const { return left; }//è¿”å›å·¦å­æ ‘
+	BinaryTreeNode<T>* rightchild()const { return right; }//è¿”å›å³å­æ ‘
+	bool isLeaf() const {	//åˆ¤å®šå½“å‰ç»“ç‚¹æ˜¯å¦ä¸ºå¶ç»“ç‚¹,è‹¥æ˜¯è¿”å›true
 		return (left == NULL) && (right == NULL);
 	}
 };
-enum Tags { Left, Right };  //Ã¶¾ÙÀàĞÍ
+enum Tags { Left, Right };  //æšä¸¾ç±»å‹
 template<class T>
 class StackElement {
 public:
 	BinaryTreeNode<T>* pointer;
 	Tags tag;
 };
-//¶ş²æÊ÷Àà
+//äºŒå‰æ ‘ç±»
 template<class T>
 class BinaryTree {
 private:
-	BinaryTreeNode<T>* root;    //¸ù½áµã
+	BinaryTreeNode<T>* root;    //æ ¹ç»“ç‚¹
 public:
-	BinaryTree() :root(NULL) {} //ÎŞ²Î¹¹Ôìº¯Êı
-	~BinaryTree() { DeleteBinaryTree(root); }    //Îö¹¹º¯Êı
-	bool isEmpty();                       //ÅĞ¶Ï¶ş²æÊ÷ÊÇ·ñÎª¿Õ
-	BinaryTreeNode<T>* Root() { return root; }  //·µ»Ø¸ù½áµã
-	BinaryTreeNode<T>* Parent(BinaryTreeNode<T>* current); //·µ»Ø¸¸½áµã
-	BinaryTreeNode<T>* LefTSibling(BinaryTreeNode<T>* current); //·µ»Ø×óĞÖ½áµã
-	BinaryTreeNode<T>* RightSibling(BinaryTreeNode<T>* current); //·µ»ØÓÒĞÖ½áµã
-	void CreateTree(const T& info, BinaryTree<T>& leftTree, BinaryTree<T>& rightTree);  //¹¹ÔìĞÂÊ÷
-	void PreOrder(BinaryTreeNode<T>* root);    //Ç°Ğò±éÀú¶ş²æÊ÷»òÆä×ÓÊ÷£¬µİ¹é
-	void InOrder(BinaryTreeNode<T>* root);    //ÖĞĞò±éÀú¶ş²æÊ÷»òÆä×ÓÊ÷£¬µİ¹é
-	void PostOrder(BinaryTreeNode<T>* root);    //ºóĞò±éÀú¶ş²æÊ÷»òÆä×ÓÊ÷£¬µİ¹é
-	void PreOrderWithoutRecursion(BinaryTreeNode<T>* root);//·Çµİ¹éÇ°ĞòÖÜÓÎ¶ş²æÊ÷»òÆä×ÓÊ÷
-	void InOrderWithoutRecursion(BinaryTreeNode<T>* root);//·Çµİ¹éÖĞĞòÖÜÓÎ¶ş²æÊ÷»òÆä×ÓÊ÷
-	void PostOrderWithoutRecursion(BinaryTreeNode<T>* root);//·Çµİ¹éºóĞòÖÜÓÎ¶ş²æÊ÷»òÆä×ÓÊ÷
-	void LevelOrder(BinaryTreeNode<T>* root);    //°´²ã´Î±éÀú¶ş²æÊ÷»òÆä×ÓÊ÷
-	void DeleteBinaryTree(BinaryTreeNode<T>* root); //É¾³ı¶ş²æÊ÷»òÆä×ÓÊ÷
+	BinaryTree() :root(NULL) {} //æ— å‚æ„é€ å‡½æ•°
+	~BinaryTree() { DeleteBinaryTree(root); }    //ææ„å‡½æ•°
+	bool isEmpty();                       //åˆ¤æ–­äºŒå‰æ ‘æ˜¯å¦ä¸ºç©º
+	BinaryTreeNode<T>* Root() { return root; }  //è¿”å›æ ¹ç»“ç‚¹
+	BinaryTreeNode<T>* Parent(BinaryTreeNode<T>* current); //è¿”å›çˆ¶ç»“ç‚¹
+	BinaryTreeNode<T>* LefTSibling(BinaryTreeNode<T>* current); //è¿”å›å·¦å…„ç»“ç‚¹
+	BinaryTreeNode<T>* RightSibling(BinaryTreeNode<T>* current); //è¿”å›å³å…„ç»“ç‚¹
+	void CreateTree(const T& info, BinaryTree<T>& leftTree, BinaryTree<T>& rightTree);  //æ„é€ æ–°æ ‘
+	void PreOrder(BinaryTreeNode<T>* root);    //å‰åºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘ï¼Œé€’å½’
+	void InOrder(BinaryTreeNode<T>* root);    //ä¸­åºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘ï¼Œé€’å½’
+	void PostOrder(BinaryTreeNode<T>* root);    //ååºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘ï¼Œé€’å½’
+	void PreOrderWithoutRecursion(BinaryTreeNode<T>* root);//éé€’å½’å‰åºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘
+	void InOrderWithoutRecursion(BinaryTreeNode<T>* root);//éé€’å½’ä¸­åºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘
+	void PostOrderWithoutRecursion(BinaryTreeNode<T>* root);//éé€’å½’ååºéå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘
+	void LevelOrder(BinaryTreeNode<T>* root);    //æŒ‰å±‚æ¬¡éå†äºŒå‰æ ‘æˆ–å…¶å­æ ‘
+	void DeleteBinaryTree(BinaryTreeNode<T>* root); //åˆ é™¤äºŒå‰æ ‘æˆ–å…¶å­æ ‘
 };
 template<class T>
-bool BinaryTree<T>::isEmpty() {   //ÅĞ¶Ï¶ş²æÊ÷ÊÇ·ñÎª¿Õ
+bool BinaryTree<T>::isEmpty() {   //åˆ¤æ–­äºŒå‰æ ‘æ˜¯å¦ä¸ºç©º
 	return root == NULL;
 }
 
 template<class T>
-BinaryTreeNode<T>* BinaryTree<T>::Parent(BinaryTreeNode<T>* current) {  //·µ»Øcuurent½áµãµÄ¸¸½áµã 
-	using std::stack;                      //Ê¹ÓÃSTLÖĞµÄstack
+BinaryTreeNode<T>* BinaryTree<T>::Parent(BinaryTreeNode<T>* current) {  //è¿”å›cuurentç»“ç‚¹çš„çˆ¶ç»“ç‚¹ 
+	using std::stack;                      //ä½¿ç”¨STLä¸­çš„stack
 	stack<BinaryTreeNode<T>*>aStack;
 	BinaryTreeNode<T>* pointer = root;
-	aStack.push(NULL);                     //Õ»µ×¼àÊÓÉÚ
+	aStack.push(NULL);                     //æ ˆåº•ç›‘è§†å“¨
 	while (pointer!=NULL) {
 		if (current == pointer->leftchild() || current == pointer->rightchild()) {
-			return pointer;                //Èç¹ûcurrentÊÇpointerµÄ×Ó½áµãÔò·µ»Ø
+			return pointer;                //å¦‚æœcurrentæ˜¯pointerçš„å­ç»“ç‚¹åˆ™è¿”å›
 		}
 		else if (pointer->rightchild() != NULL) {
 			aStack.push(pointer->rightchild());
@@ -75,23 +75,23 @@ BinaryTreeNode<T>* BinaryTree<T>::Parent(BinaryTreeNode<T>* current) {  //·µ»Øcu
 		}
 		else {
 			pointer = aStack.top(); 
-			aStack.pop();   //»ñÈ¡Õ»¶¥ÔªËØ
+			aStack.pop();   //è·å–æ ˆé¡¶å…ƒç´ 
 		}
 	}
 }
 
 template<class T>
-BinaryTreeNode<T>* BinaryTree<T>::LefTSibling(BinaryTreeNode<T>* current) { //·µ»Øcurrent½áµãµÄ×óĞÖµÜ½áµã
+BinaryTreeNode<T>* BinaryTree<T>::LefTSibling(BinaryTreeNode<T>* current) { //è¿”å›currentç»“ç‚¹çš„å·¦å…„å¼Ÿç»“ç‚¹
 	BinaryTreeNode<T>* tmp;
 	if (current) {
 		tmp = Parent(current);
 		if (tmp == NULL || current == tmp->leftchild())
 		{
-			//cout << current->value() << "²»´æÔÚ×óĞÖµÜ½áµã" << endl;
+			//cout << current->value() << "ä¸å­˜åœ¨å·¦å…„å¼Ÿç»“ç‚¹" << endl;
 			return NULL;
 		}
 		else {
-			//cout << current->value() << "×óĞÖµÜ½áµã=" << tmp->leftchild() << endl;
+			//cout << current->value() << "å·¦å…„å¼Ÿç»“ç‚¹=" << tmp->leftchild() << endl;
 			return tmp->leftchild();
 		}
 	}
@@ -99,16 +99,16 @@ BinaryTreeNode<T>* BinaryTree<T>::LefTSibling(BinaryTreeNode<T>* current) { //·µ
 }
 
 template<class T>
-BinaryTreeNode<T>* BinaryTree<T>::RightSibling(BinaryTreeNode<T>* current) {//·µ»Øcurrent½áµãµÄÓÒĞÖµÜ½áµã
+BinaryTreeNode<T>* BinaryTree<T>::RightSibling(BinaryTreeNode<T>* current) {//è¿”å›currentç»“ç‚¹çš„å³å…„å¼Ÿç»“ç‚¹
 	if (current) {
 		BinaryTreeNode<T>* tmp= Parent(current);
 		if (tmp == NULL || current == tmp->rightchild())
 		{
-			//cout << current->value() << "²»´æÔÚÓÒĞÖµÜ½áµã" << endl;
+			//cout << current->value() << "ä¸å­˜åœ¨å³å…„å¼Ÿç»“ç‚¹" << endl;
 			return NULL;
 		}
 		else {
-			//cout << current->value() << "ÓÒĞÖµÜ½áµã=" << tmp->rightchild() << endl;
+			//cout << current->value() << "å³å…„å¼Ÿç»“ç‚¹=" << tmp->rightchild() << endl;
 			return tmp->rightchild();
 		}
 	}
@@ -117,24 +117,24 @@ BinaryTreeNode<T>* BinaryTree<T>::RightSibling(BinaryTreeNode<T>* current) {//·µ
 
 template<class T>
 void BinaryTree<T>::CreateTree(const T& info, BinaryTree<T>& leftTree, BinaryTree<T>& rightTree) {
-	//¹¹ÔìĞÂÊ÷
-	//ÓÉ×ó×ÓÊ÷leftTree¡¢ÓÒ×ÓÊ÷rightTreeºÍÊı¾İÔªËØinfo´´½¨Ò»¿ÃĞÂÊ÷£¬¸ù½áµãÊÇinfo
-	//ÆäÖĞthis¡¢leftTree¡¢rightTree±ØĞëÊÇ²»Í¬µÄÈı¿ÃÊ÷
+	//æ„é€ æ–°æ ‘
+	//ç”±å·¦å­æ ‘leftTreeã€å³å­æ ‘rightTreeå’Œæ•°æ®å…ƒç´ infoåˆ›å»ºä¸€æ£µæ–°æ ‘ï¼Œæ ¹ç»“ç‚¹æ˜¯info
+	//å…¶ä¸­thisã€leftTreeã€rightTreeå¿…é¡»æ˜¯ä¸åŒçš„ä¸‰æ£µæ ‘
 	root = new BinaryTreeNode<T>(info, leftTree.root, rightTree.root);
-	//leftTree.root = rightTree.root = NULL;                //Ô­À´Á½¿Ã×ÓÊ÷µÄ¸ù½áµãÖ¸¿Õ£¬±ÜÃâ·ÃÎÊ
+	//leftTree.root = rightTree.root = NULL;                //åŸæ¥ä¸¤æ£µå­æ ‘çš„æ ¹ç»“ç‚¹æŒ‡ç©ºï¼Œé¿å…è®¿é—®
 }
 
 template<class T>
-void BinaryTree<T>::DeleteBinaryTree(BinaryTreeNode<T>* root) {  //É¾³ı¶ş²æÊ÷
+void BinaryTree<T>::DeleteBinaryTree(BinaryTreeNode<T>* root) {  //åˆ é™¤äºŒå‰æ ‘
 	if (root) {
-		DeleteBinaryTree(root->leftchild());      //µİ¹éÉ¾³ı×ó×ÓÊ÷
-		DeleteBinaryTree(root->rightchild());     //µİ¹éÉ¾³ıÓÒ×ÓÊ÷
-		delete root;                              //É¾³ı¸ù½áµã
+		DeleteBinaryTree(root->leftchild());      //é€’å½’åˆ é™¤å·¦å­æ ‘
+		DeleteBinaryTree(root->rightchild());     //é€’å½’åˆ é™¤å³å­æ ‘
+		delete root;                              //åˆ é™¤æ ¹ç»“ç‚¹
 	}
 }
 
 template<class T>
-void BinaryTree<T>::PreOrder(BinaryTreeNode<T>* root) { //µİ¹éÇ°Ğò±éÀú¶ş²æÊ÷
+void BinaryTree<T>::PreOrder(BinaryTreeNode<T>* root) { //é€’å½’å‰åºéå†äºŒå‰æ ‘
 	if (root != NULL) {
 		cout << root->value();
 		PreOrder(root->leftchild());
@@ -142,7 +142,7 @@ void BinaryTree<T>::PreOrder(BinaryTreeNode<T>* root) { //µİ¹éÇ°Ğò±éÀú¶ş²æÊ÷
 	}
 }
 template<class T>
-void BinaryTree<T>::InOrder(BinaryTreeNode<T>* root) {//µİ¹éÖĞĞò±éÀú¶ş²æÊ÷
+void BinaryTree<T>::InOrder(BinaryTreeNode<T>* root) {//é€’å½’ä¸­åºéå†äºŒå‰æ ‘
 	if (root != NULL) {
 		InOrder(root->leftchild());
 		cout << root->value();
@@ -150,7 +150,7 @@ void BinaryTree<T>::InOrder(BinaryTreeNode<T>* root) {//µİ¹éÖĞĞò±éÀú¶ş²æÊ÷
 	}
 }
 template<class T>
-void BinaryTree<T>::PostOrder(BinaryTreeNode<T>* root) {//µİ¹éºóĞò±éÀú¶ş²æÊ÷
+void BinaryTree<T>::PostOrder(BinaryTreeNode<T>* root) {//é€’å½’ååºéå†äºŒå‰æ ‘
 	if (root != NULL) {
 		PostOrder(root->leftchild());
 		PostOrder(root->rightchild());
@@ -160,21 +160,21 @@ void BinaryTree<T>::PostOrder(BinaryTreeNode<T>* root) {//µİ¹éºóĞò±éÀú¶ş²æÊ÷
 
 template<class T>
 void BinaryTree<T>::PreOrderWithoutRecursion(BinaryTreeNode<T>* root) {
-	//·Çµİ¹é¿ò¼Ü£¬Ç°Ğò±éÀú¶ş²æÊ÷
+	//éé€’å½’æ¡†æ¶ï¼Œå‰åºéå†äºŒå‰æ ‘
 	using std::stack;
 	stack<BinaryTreeNode<T>*>aStack;
 	BinaryTreeNode<T>* pointer = root;
-	aStack.push(NULL);              //Õ»µ×¼àÊÓÉÚ
+	aStack.push(NULL);              //æ ˆåº•ç›‘è§†å“¨
 	while (pointer) {
 		cout << pointer->value();
 		if (pointer->rightchild() != NULL) {
-			aStack.push(pointer->rightchild());  //ÓÒº¢×ÓÈëÕ»
+			aStack.push(pointer->rightchild());  //å³å­©å­å…¥æ ˆ
 		}
 		if (pointer->leftchild()) {
-			pointer = pointer->leftchild();   //ÑØ×óÂ·ÏÂ½µ
+			pointer = pointer->leftchild();   //æ²¿å·¦è·¯ä¸‹é™
 		}
 		else {
-			//×ó×ÓÊ÷·ÃÎÊÍê±Ï£¬×ªÏò·ÃÎÊÓÒ×ÓÊ÷
+			//å·¦å­æ ‘è®¿é—®å®Œæ¯•ï¼Œè½¬å‘è®¿é—®å³å­æ ‘
 			pointer = aStack.top();
 			aStack.pop();
 		}
@@ -183,77 +183,77 @@ void BinaryTree<T>::PreOrderWithoutRecursion(BinaryTreeNode<T>* root) {
 
 template<class T>
 void BinaryTree<T>::InOrderWithoutRecursion(BinaryTreeNode<T>* root) {
-	//·Çµİ¹é¿ò¼Ü£¬ÖĞĞò±éÀú¶ş²æÊ÷
+	//éé€’å½’æ¡†æ¶ï¼Œä¸­åºéå†äºŒå‰æ ‘
 	using std::stack;
 	stack<BinaryTreeNode<T>*>aStack;
 	BinaryTreeNode<T>* pointer = root;
 	while (!aStack.empty() || pointer) {
 		if (pointer) {
-			aStack.push(pointer);   //µ±Ç°½áµãÈëÕ»
+			aStack.push(pointer);   //å½“å‰ç»“ç‚¹å…¥æ ˆ
 			pointer = pointer->leftchild();
 		}
 		else {
 			pointer = aStack.top();
 			aStack.pop();
 			cout << pointer->value();
-			pointer = pointer->rightchild();  //×ªÏòÓÒ×ÓÊ÷
+			pointer = pointer->rightchild();  //è½¬å‘å³å­æ ‘
 		}
 	}
 }
 
 template<class T>
 void BinaryTree<T>::PostOrderWithoutRecursion(BinaryTreeNode<T>* root) {
-	//·Çµİ¹é¿ò¼Ü£¬ºóĞò±éÀú¶ş²æÊ÷
+	//éé€’å½’æ¡†æ¶ï¼Œååºéå†äºŒå‰æ ‘
 	using std::stack;
 	StackElement<T> element;
 	stack<StackElement<T>>aStack;
 	BinaryTreeNode<T>* pointer = root;
 	while (!aStack.empty() || pointer) {
 		while (pointer != NULL) {
-			//ÑØ·Ç¿ÕÖ¸ÕëÑ¹Õ»£¬²¢×óÂ·ÏÂ½µ
+			//æ²¿éç©ºæŒ‡é’ˆå‹æ ˆï¼Œå¹¶å·¦è·¯ä¸‹é™
 			element.pointer = pointer;
 			element.tag = Left;
-			aStack.push(element);      //½«±êÖ¾Î»ÎªLeftµÄ½áµãÑ¹ÈëÕ»ÖĞ
+			aStack.push(element);      //å°†æ ‡å¿—ä½ä¸ºLeftçš„ç»“ç‚¹å‹å…¥æ ˆä¸­
 			pointer = pointer->leftchild();
 		}
-		element = aStack.top(); aStack.pop();  //»ñÈ¡Õ»¶¥ÔªËØ£¬²¢ÍËÕ»
+		element = aStack.top(); aStack.pop();  //è·å–æ ˆé¡¶å…ƒç´ ï¼Œå¹¶é€€æ ˆ
 		pointer = element.pointer;
 		if (element.tag == Left) {
-			//´Ó×ó×ÓÊ÷»ØÀ´
-			element.tag = Right;   //ÖÃ±êÖ¾Î»ÎªRight
+			//ä»å·¦å­æ ‘å›æ¥
+			element.tag = Right;   //ç½®æ ‡å¿—ä½ä¸ºRight
 			aStack.push(element);
 			pointer = pointer->rightchild();
 		}
-		else {     //Èç¹û´ÓÓÒ×ÓÊ÷»ØÀ´
-			cout << pointer->value();    //·ÃÎÊµ±Ç°½áµã
-			pointer = NULL;            //ÖÃpointerÖ¸ÕëÎª¿Õ£¬ÒÔ¼ÌĞøµ¯Õ»
+		else {     //å¦‚æœä»å³å­æ ‘å›æ¥
+			cout << pointer->value();    //è®¿é—®å½“å‰ç»“ç‚¹
+			pointer = NULL;            //ç½®pointeræŒ‡é’ˆä¸ºç©ºï¼Œä»¥ç»§ç»­å¼¹æ ˆ
 		}
 	}
 }
 
 template<class T>
 void BinaryTree<T>::LevelOrder(BinaryTreeNode<T>* root) {
-	//²ãĞò±éÀú¶ş²æÊ÷
+	//å±‚åºéå†äºŒå‰æ ‘
 	using std::queue;
 	queue<BinaryTreeNode<T>*>aQueue;
 	BinaryTreeNode<T>* pointer = root;
-	if (pointer)aQueue.push(pointer);   //¸ù½áµãÈë¶Ó
+	if (pointer)aQueue.push(pointer);   //æ ¹ç»“ç‚¹å…¥é˜Ÿ
 	while (!aQueue.empty()) {
-		//¶ÓÁĞ·Ç¿Õ
-		pointer = aQueue.front();    //È¡¶ÓÊ×ÔªËØ
+		//é˜Ÿåˆ—éç©º
+		pointer = aQueue.front();    //å–é˜Ÿé¦–å…ƒç´ 
 		aQueue.pop();
 		cout << pointer->value();
 		if (pointer->leftchild()) {
-			aQueue.push(pointer->leftchild());   //×ó×ÓÊ÷½ø¶ÓÁĞ
+			aQueue.push(pointer->leftchild());   //å·¦å­æ ‘è¿›é˜Ÿåˆ—
 		}
 		if (pointer->rightchild())
-			aQueue.push(pointer->rightchild());  //ÓÒ×ÓÊ÷½ø¶ÓÁĞ
+			aQueue.push(pointer->rightchild());  //å³å­æ ‘è¿›é˜Ÿåˆ—
 	}
 }
 
 int main()
 {
-	//²âÊÔ³ÌĞò
+	//æµ‹è¯•ç¨‹åº
 	BinaryTree<char> a, b, c, d, e, f, g, h, i, nulltree;
 	d.CreateTree('D', nulltree, nulltree);
 	g.CreateTree('G', nulltree, nulltree);
@@ -265,36 +265,36 @@ int main()
 	c.CreateTree('C', nulltree, f);
 	a.CreateTree('A', b, c);
 	
-	//Ç°Ğò±éÀú
-	cout << "Ç°Ğò±éÀú£¨µİ¹é£©: " << endl;
-	a.PreOrder(a.Root());				//µİ¹é
+	//å‰åºéå†
+	cout << "å‰åºéå†ï¼ˆé€’å½’ï¼‰: " << endl;
+	a.PreOrder(a.Root());				//é€’å½’
 	cout << endl;
-	cout << "Ç°Ğò±éÀú£¨·Çµİ¹é£©: " << endl;
-	a.PreOrderWithoutRecursion(a.Root());//·Çµİ¹é
+	cout << "å‰åºéå†ï¼ˆéé€’å½’ï¼‰: " << endl;
+	a.PreOrderWithoutRecursion(a.Root());//éé€’å½’
 	cout << endl;
 	
-	//ÖĞĞò±éÀú¶ş²æÊ÷
-	cout << "ÖĞĞò±éÀú£¨µİ¹é£©: " << endl;
-	a.InOrder(a.Root());			//µİ¹é
+	//ä¸­åºéå†äºŒå‰æ ‘
+	cout << "ä¸­åºéå†ï¼ˆé€’å½’ï¼‰: " << endl;
+	a.InOrder(a.Root());			//é€’å½’
 	cout << endl;
-	cout << "ÖĞĞò±éÀú£¨·Çµİ¹é£©: " << endl;
-	a.InOrderWithoutRecursion(a.Root());//·Çµİ¹é
-	cout << endl;
-
-	//ºóĞò±éÀú¶ş²æÊ÷
-	cout << "ºóĞò±éÀú£¨µİ¹é£©: " << endl;
-	a.PostOrder(a.Root());			//µİ¹é
-	cout << endl;
-	cout << "ºóĞò±éÀú£¨·Çµİ¹é£©: " << endl;
-	a.PostOrderWithoutRecursion(a.Root());//·Çµİ¹é	
+	cout << "ä¸­åºéå†ï¼ˆéé€’å½’ï¼‰: " << endl;
+	a.InOrderWithoutRecursion(a.Root());//éé€’å½’
 	cout << endl;
 
-	//²ãĞò±éÀú¶ş²æÊ÷
-	cout << "²ãĞò±éÀú: " << endl;
+	//ååºéå†äºŒå‰æ ‘
+	cout << "ååºéå†ï¼ˆé€’å½’ï¼‰: " << endl;
+	a.PostOrder(a.Root());			//é€’å½’
+	cout << endl;
+	cout << "ååºéå†ï¼ˆéé€’å½’ï¼‰: " << endl;
+	a.PostOrderWithoutRecursion(a.Root());//éé€’å½’	
+	cout << endl;
+
+	//å±‚åºéå†äºŒå‰æ ‘
+	cout << "å±‚åºéå†: " << endl;
 	a.LevelOrder(a.Root());
 	cout << endl;
 
-	//¸ù½áµã
-	cout <<"¸ù½áµã="<< a.Root()->value()<<endl;
+	//æ ¹ç»“ç‚¹
+	cout <<"æ ¹ç»“ç‚¹="<< a.Root()->value()<<endl;
 	return 0;
 }
